@@ -1,6 +1,6 @@
 ############################
 # Written by: Brett Pickett at JCVI (May 2016)
-# Input 1: multiple sequence alignment in fasta format and 
+# Input 1: multiple sequence alignment in fasta format and
 # Input 2 TSV file with ID (matching fasta header) in first column and each metadata category in additional columns
 # Output 1: meta-CATS Goodness of Fit test results for each metadata category
 # Output 2: meta-CATS Test of Independence results for each metadata category
@@ -118,7 +118,7 @@ my $innerLength;
 my $number = 1;
 #Assign values in %assignments using alphabetically-organized header and attribute names
 foreach my $outer2 (@sortedOuter){
-	@sortedInner = sort keys $categoryCounts{$outer2};
+	@sortedInner = sort keys %{$categoryCounts{%{$outer2}}};
 	#print @sortedInner, "\n";
 	$innerLength = @sortedInner;
 	$number = 1;
@@ -140,7 +140,7 @@ foreach my $category1 (@sortedOuter){#metadata category
 		my $attribute = $categories{$seq1}{$category1}; #points to numerical assignment representing metadata attribute
 		#***#print "$seq1, $category1, $attribute, $assignments{$category1}{$attribute}\n";
 		#Only output the label, category, and sequence for labels that have BOTH category AND sequence data
-		
+
 		#my $z = length($categories{$seq1}{Seq});
 		##print "$seq1\t$z\n";
 		if(exists $categories{$seq1}{Seq}){
@@ -170,16 +170,16 @@ foreach my $file1 (@fileNames){#metadata category
 		if ($line1 =~m/^.+?\t(.+)?\t.+/){
 			my $newCategoryNum = $1;
 			if ($firstloop == 0){
-				#print "firstloop, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n"; 
+				#print "firstloop, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n";
 				$oldCategoryNum = $newCategoryNum;
 				$firstloop = 1;
 			}
 			elsif ($oldCategoryNum != $newCategoryNum){
 				$boolean1 = 1;
-				#print "diffCategories, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n"; 
+				#print "diffCategories, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n";
 			}
 			elsif ($oldCategoryNum == $newCategoryNum){
-				#print "sameCategories, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n"; 
+				#print "sameCategories, boolean = $boolean1, newCategory = $newCategoryNum, oldCategory = $oldCategoryNum\n";
 				next
 			}
 		}
@@ -238,7 +238,7 @@ for (my $p = 0; $p < $resultsLength; $p++){#metadata category
 		#my $quotient1 = printf("%.2f", $quotient);
 		print SUMMARY "$sortedOuter[$p]\t$resultsStats{$results[$p]}{sig}\t$resultsStats{$results[$p]}{total}\t";
 		printf SUMMARY ("%.1f",$quotient);
-		print SUMMARY "%\n"; 
+		print SUMMARY "%\n";
 	}
 	else{
 		print SUMMARY "$sortedOuter[$p]\tNone\tNA\n";
@@ -296,7 +296,7 @@ print "Pie chart of results can be found in:\n\"AA-$metaDataFile-PieChart.png\"\
 # 	my $key;
 # 	my $value;
 # 	print "$count5, $resultsArray1[5]\n";
-# 
+#
 # 	my %hash = map { ( $key, $value ) = split ":"; $key => $value } $resultsArray1[5];
 # 	print "$key, $value: $hash{$key}{$value}\n";
 # }
