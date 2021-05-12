@@ -14,8 +14,8 @@ use Statistics::R;
 
 #my $metaDataFile = 'RPRC_Human_RSV_MasterMetadata_v2.txt';
 #my $seqFile = 'RPRC_completeGenome_Batch1-5_nogap-Concatenated.pep.fasta.afa'; #aligned sequences
-my $metaDataFile = 'CH2-metadata.tsv';
-my $seqFile = 'CH2-31NA2.fasta.afa'; #aligned sequences
+my $metaDataFile = 'metadata.tsv';
+my $seqFile = 'input.afa'; #aligned sequences
 
 
 my %categories;
@@ -118,7 +118,7 @@ my $innerLength;
 my $number = 1;
 #Assign values in %assignments using alphabetically-organized header and attribute names
 foreach my $outer2 (@sortedOuter){
-	@sortedInner = sort keys %{$categoryCounts{%{$outer2}}};
+	@sortedInner = sort keys %{$categoryCounts{$outer2}};
 	#print @sortedInner, "\n";
 	$innerLength = @sortedInner;
 	$number = 1;
@@ -267,7 +267,7 @@ $R->stop();
 
 print "Complete\n";
 print "Number of significant results for each metadata category can be found in:\n\"AA_Summary_Results-$metaDataFile\"\n\n";
-print "Pie chart of results can be found in:\n\"AA-$metaDataFile-PieChart.png\"\n";
+print "Pie chart of results can be found in:\n\"AA-$metaDataFile-PieChart.pdf\"\n";
 
 ##Calculate specificity and sensitivity from RESULTSALL file.
 # open (RESULTSALL1, "<AA_Summary_Results_ALL-$metaDataFile.txt") || die "AA_Summary_Results_ALL-$metaDataFile.txt: $!\n";
